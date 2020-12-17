@@ -1,0 +1,4 @@
+Django==3.1.4
+psycopg2-binary==2.8.6
+flake8==3.8.4
+isort==5.6.4
