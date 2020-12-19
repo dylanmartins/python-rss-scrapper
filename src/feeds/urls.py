@@ -1,6 +1,6 @@
 from django.urls import path
-from feeds.views import HelloView
+from feeds.views import FeedsView
 
 urlpatterns = [
-    path('', HelloView.as_view(), name='hello'),
+    path('', FeedsView.as_view(), name='index'),
 ]

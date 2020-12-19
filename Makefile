@@ -3,11 +3,14 @@ docker=docker exec -it python-rss-scrapper_web_1
 createsuperuser:
 	$(docker) python3 src/manage.py createsuperuser
 
+makemigrations:
+	$(docker) python3 src/manage.py makemigrations
+
 migrate:
 	$(docker) python3 src/manage.py migrate
 
 test:
-	$(docker) python3 src/manage.py test
+	$(docker) py.test -vv -xs src
 
 lint:
 	@flake8 .
