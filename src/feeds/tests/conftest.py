@@ -11,17 +11,24 @@ def cleanup():
 
 
 @pytest.fixture
+def valid_feed_data():
+    return {
+        'title': 'Test feed',
+        'url': 'http://www.nu.nl/rss/Algemeen',
+        'created_at': '2020-12-19T20:55:12.163Z',
+        'updated_at': '2020-12-19T20:55:12.163Z',
+    }
+
+
+@pytest.fixture
 def save_feeds(
     normal_user_a,
     normal_user_b,
+    valid_feed_data,
     cleanup
 ):
-    feed_data = {
-        'title': 'Test feed',
-        'url': 'http://www.nu.nl/rss/Algemeen',
-        'follower': normal_user_a
-    }
-    Feed.objects.create(**feed_data)
+    valid_feed_data['follower'] = normal_user_a
+    Feed.objects.create(**valid_feed_data)
 
-    feed_data['follower'] = normal_user_b
-    Feed.objects.create(**feed_data)
+    valid_feed_data['follower'] = normal_user_b
+    return Feed.objects.create(**valid_feed_data)
