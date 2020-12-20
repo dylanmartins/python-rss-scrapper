@@ -1,7 +1,7 @@
-from django.http import HttpResponse, JsonResponse
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
+from django.http import JsonResponse
 from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAuthenticated
+
 from items.services import ItemsManagerService
 
 

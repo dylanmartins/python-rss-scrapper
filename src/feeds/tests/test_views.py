@@ -1,5 +1,6 @@
-import pytest
 import uuid
+
+import pytest
 from django.urls import reverse_lazy
 
 from feeds.models import Feed
@@ -20,7 +21,7 @@ class TestFeedsView:
 
         assert response.status_code == 200
         assert len(json_content['data']) == 1
-        assert json_content['data'][0]['url'] == 'http://www.nu.nl/rss/Algemeen'
+        assert json_content['data'][0]['url'] == 'http://www.nu.nl/rss/Algemeen'  # noqa
         assert json_content['data'][0]['title'] == 'Test feed'
         assert count == 2
 

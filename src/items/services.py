@@ -1,7 +1,4 @@
-import json
 
-from django.core import serializers
-from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
 
 from feeds.models import Feed
@@ -26,7 +23,13 @@ class ItemsManagerService:
         is_read = True if show_all_read else False
         return item.filter(is_read=is_read)
 
-    def get_all_items_by_feed(self, uuid, user, show_all_read, show_all_unread):
+    def get_all_items_by_feed(
+        self,
+        uuid,
+        user,
+        show_all_read,
+        show_all_unread
+    ):
         '''
         This method returns all items from a specific feed checking the user.
         You can filter using a querystring, for example:
@@ -43,7 +46,7 @@ class ItemsManagerService:
             )
         else:
             items = feed.items.all()
-            
+
         return [
             self._get_item(item)
             for item in items

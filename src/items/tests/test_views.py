@@ -1,8 +1,8 @@
-import pytest
 import uuid
+
+import pytest
 from django.urls import reverse_lazy
 
-from feeds.models import Feed
 from items.models import Item
 
 
@@ -28,7 +28,7 @@ class TestItemsFeedView:
         assert response.status_code == 200
         assert len(json_content['data']) == 1
         assert json_content['data'][0]['title'] == 'Test item'
-        assert json_content['data'][0]['is_read'] == False
+        assert json_content['data'][0]['is_read'] is False
 
     def test_get_view_should_return_all_unread_items_by_feed(
         self,
@@ -49,7 +49,7 @@ class TestItemsFeedView:
         assert response.status_code == 200
         assert len(json_content['data']) == 1
         assert json_content['data'][0]['title'] == 'Test item'
-        assert json_content['data'][0]['is_read'] == False
+        assert json_content['data'][0]['is_read'] is False
 
     def test_get_view_should_return_all_read_items_by_feed(
         self,
@@ -91,7 +91,7 @@ class TestItemsFeedView:
         assert response.status_code == 200
         assert len(json_content['data']) == 1
         assert json_content['data'][0]['title'] == 'Test item'
-        assert json_content['data'][0]['is_read'] == False
+        assert json_content['data'][0]['is_read'] is False
 
     def test_get_view_should_not_return_all_items_with_wrong_user(
         self,
@@ -107,7 +107,6 @@ class TestItemsFeedView:
             kwargs={'uuid_feed': str(valid_feed_b.uuid)}
         )
         response = api_client.get(url)
-        json_content = response.json()
 
         assert response.status_code == 404
 
@@ -138,7 +137,7 @@ class TestReadItemView:
         assert json_content['data']['title'] == item.title
         assert json_content['data']['uuid'] == str(item.uuid)
         assert json_content['data']['is_read'] != item.is_read
-        assert unread_item.is_read == True
+        assert unread_item.is_read is True
 
     def test_get_view_should_not_return_item_and_set_is_read_true_if_invalid_uuid(  # noqa
         self,

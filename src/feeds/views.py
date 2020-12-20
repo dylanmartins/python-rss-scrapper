@@ -1,11 +1,8 @@
-import json
 
 from django.http import HttpResponse, JsonResponse
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 
-from feeds.models import Feed
 from feeds.serializers import CreateFeedSerializer
 from feeds.services import FeedsManagerService
 

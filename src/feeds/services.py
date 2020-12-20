@@ -1,6 +1,3 @@
-import json
-from django.core import serializers
-from django.forms.models import model_to_dict
 
 from feeds.models import Feed
 
@@ -36,8 +33,8 @@ class FeedsManagerService:
 
     def delete_feed(self, uuid):
         '''
-        This method deletes a feed using a UUID, if the feed 
+        This method deletes a feed using a UUID, if the feed
         exists return 1 else 0.
         '''
-        deleted, _= Feed.objects.filter(uuid=uuid).delete()
+        deleted, _ = Feed.objects.filter(uuid=uuid).delete()
         return deleted
