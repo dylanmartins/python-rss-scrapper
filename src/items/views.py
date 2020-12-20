@@ -19,3 +19,19 @@ class ItemsFeedView(GenericAPIView):
             )
         }
         return JsonResponse(content, status=200)
+
+
+class ReadItemView(GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+
+    def __init__(self):
+        self.manager = ItemsManagerService()
+
+    def get(self, request, uuid_item):
+        content = {
+            'data': self.manager.get_item_and_set_is_read(
+                uuid_item,
+                request.user
+            )
+        }
+        return JsonResponse(content, status=200)

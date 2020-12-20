@@ -72,7 +72,7 @@ def save_feeds(
 
 
 @pytest.fixture
-def save_items_a(
+def valid_items_a(
     save_feeds,
     valid_feed_a,
     cleanup
@@ -84,7 +84,7 @@ def save_items_a(
 
 
 @pytest.fixture
-def save_items_b(
+def valid_items_b(
     save_feeds,
     valid_feed_b,
     cleanup
@@ -96,5 +96,5 @@ def save_items_b(
 
 
 @pytest.fixture
-def save_items(save_items_a, save_items_b, cleanup):
+def save_items(valid_items_a, valid_items_b, cleanup):
     return
