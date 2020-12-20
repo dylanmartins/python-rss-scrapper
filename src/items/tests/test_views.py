@@ -30,6 +30,69 @@ class TestItemsFeedView:
         assert json_content['data'][0]['title'] == 'Test item'
         assert json_content['data'][0]['is_read'] == False
 
+    def test_get_view_should_return_all_unread_items_by_feed(
+        self,
+        api_client,
+        save_feeds,
+        save_items,
+        valid_feed_a
+    ):
+        assert Item.objects.all().count() == 2
+
+        url = reverse_lazy(
+            'items:index',
+            kwargs={'uuid_feed': str(valid_feed_a.uuid)}
+        )
+        response = api_client.get(f'{url}?show_all_unread=true')
+        json_content = response.json()
+
+        assert response.status_code == 200
+        assert len(json_content['data']) == 1
+        assert json_content['data'][0]['title'] == 'Test item'
+        assert json_content['data'][0]['is_read'] == False
+
+    def test_get_view_should_return_all_read_items_by_feed(
+        self,
+        api_client,
+        save_feeds,
+        save_items,
+        valid_feed_a
+    ):
+        assert Item.objects.all().count() == 2
+
+        url = reverse_lazy(
+            'items:index',
+            kwargs={'uuid_feed': str(valid_feed_a.uuid)}
+        )
+        response = api_client.get(f'{url}?show_all_read=true')
+        json_content = response.json()
+
+        assert response.status_code == 200
+        assert len(json_content['data']) == 0
+
+    def test_get_view_should_return_all_read_and_unread_items_by_feed(
+        self,
+        api_client,
+        save_feeds,
+        save_items,
+        valid_feed_a
+    ):
+        assert Item.objects.all().count() == 2
+
+        url = reverse_lazy(
+            'items:index',
+            kwargs={'uuid_feed': str(valid_feed_a.uuid)}
+        )
+        response = api_client.get(
+            f'{url}?show_all_read=true&show_all_unread=true'
+        )
+        json_content = response.json()
+
+        assert response.status_code == 200
+        assert len(json_content['data']) == 1
+        assert json_content['data'][0]['title'] == 'Test item'
+        assert json_content['data'][0]['is_read'] == False
+
     def test_get_view_should_not_return_all_items_with_wrong_user(
         self,
         api_client,

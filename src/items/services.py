@@ -19,12 +19,31 @@ class ItemsManagerService:
             'updated_at': item.updated_at
         }
 
-    def get_all_items_by_feed(self, uuid, user):
+    def _get_filteres_items(self, item, show_all_read, show_all_unread):
+        if all([show_all_read, show_all_unread]):
+            return item.all()
+
+        is_read = True if show_all_read else False
+        return item.filter(is_read=is_read)
+
+    def get_all_items_by_feed(self, uuid, user, show_all_read, show_all_unread):
         '''
         This method returns all items from a specific feed checking the user.
+        You can filter using a querystring, for example:
+            - http://localhost:8000/feeds/?show_all_read=true
+            - http://localhost:8000/feeds/?show_all_unread=true
         '''
         feed = get_object_or_404(Feed, uuid=uuid, follower=user)
-        items = feed.items.all()
+
+        if any([show_all_read, show_all_unread]):
+            items = self._get_filteres_items(
+                feed.items,
+                show_all_read,
+                show_all_unread
+            )
+        else:
+            items = feed.items.all()
+            
         return [
             self._get_item(item)
             for item in items

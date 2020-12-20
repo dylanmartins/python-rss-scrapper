@@ -12,10 +12,14 @@ class ItemsFeedView(GenericAPIView):
         self.manager = ItemsManagerService()
 
     def get(self, request, uuid_feed):
+        show_all_read = request.GET.get('show_all_read')
+        show_all_unread = request.GET.get('show_all_unread')
         content = {
             'data': self.manager.get_all_items_by_feed(
                 uuid_feed,
-                request.user
+                request.user,
+                show_all_read,
+                show_all_unread
             )
         }
         return JsonResponse(content, status=200)
