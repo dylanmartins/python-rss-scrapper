@@ -1,16 +1,16 @@
 import json
 
 from django.http import HttpResponse, JsonResponse
+from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from feeds.models import Feed
 from feeds.serializers import CreateFeedSerializer
 from feeds.services import FeedsManagerService
 
 
-class FeedsView(APIView):
+class FeedsView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
 
     def __init__(self):
@@ -23,7 +23,8 @@ class FeedsView(APIView):
         return JsonResponse(content, status=200)
 
 
-class CreateFeedsView(APIView):
+class CreateFeedsView(GenericAPIView):
+    serializer_class = CreateFeedSerializer
     permission_classes = (IsAuthenticated,)
 
     def __init__(self):
@@ -32,7 +33,7 @@ class CreateFeedsView(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
 
-        serializer = CreateFeedSerializer(data=data)
+        serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
 
         validated_data = serializer.validated_data
@@ -44,7 +45,7 @@ class CreateFeedsView(APIView):
         return HttpResponse(status=status)
 
 
-class DeleteFeedsView(APIView):
+class DeleteFeedsView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
 
     def __init__(self):

@@ -20,8 +20,11 @@ from rest_framework_simplejwt import views as jwt_views
 from rest_framework_swagger import renderers
 from rest_framework_swagger.views import get_swagger_view
 
-schema_view = get_schema_view(title="Fbs Api Docs", public=True, renderer_classes=[renderers.OpenAPIRenderer, renderers.SwaggerUIRenderer])
-# schema_view = get_swagger_view(title='RSS-scrapper API', public=True, renderer_classes=[renderers.OpenAPIRenderer, renderers.SwaggerUIRenderer])
+schema_view = get_schema_view(
+    title="RSS-scrapper API",
+    public=True,
+    renderer_classes=[renderers.OpenAPIRenderer, renderers.SwaggerUIRenderer]
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,6 +41,7 @@ urlpatterns = [
     ),
 
     path('feeds/', include(('feeds.urls', 'feeds'), namespace='feeds')),
+    path('items/', include(('items.urls', 'items'), namespace='items')),
 
     path('docs/', schema_view),
 ]

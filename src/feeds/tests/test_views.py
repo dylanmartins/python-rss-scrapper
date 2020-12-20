@@ -81,13 +81,14 @@ class TestDeleteFeedsView:
         self,
         api_client,
         save_feeds,
+        valid_feed_b,
         valid_feed_data
     ):
         assert Feed.objects.all().count() == 2
         url = reverse_lazy(
             'feeds:delete',
             kwargs={
-                'uuid': str(save_feeds.uuid)
+                'uuid': str(valid_feed_b.uuid)
             }
         )
         response = api_client.delete(url)

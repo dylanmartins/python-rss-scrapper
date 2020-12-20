@@ -9,7 +9,7 @@ class FeedsManagerService:
 
     def get_all_feeds_by_user(self, user):
         '''
-        This method returns title and url of all feeds from a specific user.
+        This method returns all feeds from a specific user.
         '''
         all_feeds = Feed.objects.filter(follower=user)
         return [
