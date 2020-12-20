@@ -23,7 +23,7 @@ class FeedsView(APIView):
         return JsonResponse(content, status=200)
 
 
-class ManageFeedsView(APIView):
+class CreateFeedsView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def __init__(self):
@@ -42,6 +42,13 @@ class ManageFeedsView(APIView):
 
         status = 201 if created else 409
         return HttpResponse(status=status)
+
+
+class DeleteFeedsView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def __init__(self):
+        self.manager = FeedsManagerService()
 
     def delete(self, request, uuid):
         deleted = self.manager.delete_feed(uuid)

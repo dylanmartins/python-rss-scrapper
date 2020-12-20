@@ -40,7 +40,7 @@ class TestFeedsView:
 
 
 @pytest.mark.django_db
-class TestManageFeedsView:
+class TestCreateFeedsView:
 
     def test_post_view_should_create_new_feed(
         self,
@@ -72,6 +72,10 @@ class TestManageFeedsView:
         )
         assert response.status_code == 409
         assert Feed.objects.all().count() == 2
+
+
+@pytest.mark.django_db
+class TestDeleteFeedsView:
 
     def test_delete_view_should_delete_feed_if_exists(
         self,
