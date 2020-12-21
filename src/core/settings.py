@@ -13,6 +13,8 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from celery.schedules import crontab
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -157,4 +159,14 @@ SWAGGER_SETTINGS = {
         }
     },
     'USE_SESSION_AUTH': False
+}
+
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+
+CELERY_BEAT_SCHEDULE = {
+    'update_all_feed_items': {
+        'task': 'feeds.tasks.update_all_feed_items',
+        'schedule': crontab(minute='*/5'),
+    },
 }

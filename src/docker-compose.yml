@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+  redis:
+    image: redis:alpine
+  celery:
+    build: .
+    command: celery -A core worker -l info
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
+  celery-beat:
+    build: .
+    command: celery -A core beat -l info
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
