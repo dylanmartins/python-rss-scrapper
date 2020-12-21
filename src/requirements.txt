@@ -8,3 +8,5 @@ pytest-django==4.1.0
 django-rest-swagger==2.1.2
 celery==4.4.1
 redis==3.4.1
+beautifulsoup4==4.9.3
+lxml==4.6.2

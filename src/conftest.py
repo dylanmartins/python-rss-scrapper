@@ -1,4 +1,7 @@
+from unittest.mock import patch
+
 import pytest
+import requests
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -98,3 +101,8 @@ def valid_items_b(
 @pytest.fixture
 def save_items(valid_items_a, valid_items_b, cleanup):
     return
+
+
+@pytest.fixture
+def patch_requests_get():
+    return patch.object(requests, 'get')

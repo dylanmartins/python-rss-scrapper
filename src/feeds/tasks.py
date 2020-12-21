@@ -39,7 +39,7 @@ def get_items_by_feed(uuid_feed):
     except Exception as err:
         logger.error(
             'Error on task update_all_feed_items using '
-            f'UUID {uuid_feed}. Error:{err}'
+            f'UUID:{uuid_feed}. Error:{err}'
         )
         return
 
