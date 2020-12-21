@@ -5,7 +5,6 @@ import pytest
 from django.urls import reverse_lazy
 
 from feeds.models import Feed
-from items.models import Item
 
 
 @pytest.mark.django_db

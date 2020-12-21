@@ -2,7 +2,6 @@ import logging
 
 import requests
 from bs4 import BeautifulSoup
-from django.http import HttpResponse
 
 logger = logging.getLogger(__name__)
 
