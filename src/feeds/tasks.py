@@ -37,7 +37,10 @@ def get_items_by_feed(uuid_feed):
         )
         item.save()
     except Exception as err:
-        logger.error(f'Error on task update_all_feed_items. Error:{err}')
+        logger.error(
+            'Error on task update_all_feed_items using '
+            f'UUID {uuid_feed}. Error:{err}'
+        )
         return
 
     logger.info('Finished task get_items_by_feed')

@@ -62,4 +62,4 @@ class UpdateFeedsView(GenericAPIView):
 
     def get(self, request, uuid):
         self.manager.update_feed(uuid, request.user)
-        return HttpResponse(status=204)
+        return HttpResponse(status=202)

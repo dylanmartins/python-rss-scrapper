@@ -1,9 +1,11 @@
 import uuid
+from unittest import mock
 
 import pytest
 from django.urls import reverse_lazy
 
 from feeds.models import Feed
+from items.models import Item
 
 
 @pytest.mark.django_db
@@ -82,8 +84,7 @@ class TestDeleteFeedsView:
         self,
         api_client,
         save_feeds,
-        valid_feed_a,
-        valid_feed_data
+        valid_feed_a
     ):
         assert Feed.objects.all().count() == 2
         url = reverse_lazy(
@@ -100,8 +101,7 @@ class TestDeleteFeedsView:
     def test_delete_view_invalid_uuid_should_do_nothing(
         self,
         api_client,
-        save_feeds,
-        valid_feed_data
+        save_feeds
     ):
         assert Feed.objects.all().count() == 2
         url = reverse_lazy(
@@ -114,3 +114,54 @@ class TestDeleteFeedsView:
 
         assert response.status_code == 400
         assert Feed.objects.all().count() == 2
+
+
+@pytest.mark.django_db
+class TestUpdateFeedsView:
+
+    @pytest.fixture(autouse=True)
+    def settings(self, settings):
+        settings.CELERY_TASK_ALWAYS_EAGER = True
+
+        return settings
+
+    def test_get_view_should_update_feed_if_exists(
+        self,
+        api_client,
+        save_feeds,
+        valid_feed_a
+    ):
+        feed_uuid = str(valid_feed_a.uuid)
+
+        url = reverse_lazy(
+            'feeds:update',
+            kwargs={
+                'uuid': feed_uuid
+            }
+        )
+        with mock.patch(
+            'feeds.services.get_items_by_feed.delay'
+        ) as mock_celery:
+            response = api_client.get(url)
+            assert mock_celery.called
+
+        assert response.status_code == 202
+
+    def test_get_view_should_return_404_if_not_exist(
+        self,
+        api_client,
+        save_feeds
+    ):
+        url = reverse_lazy(
+            'feeds:update',
+            kwargs={
+                'uuid': str(uuid.uuid4())
+            }
+        )
+        with mock.patch(
+            'feeds.services.get_items_by_feed.delay'
+        ) as mock_celery:
+            response = api_client.get(url)
+            assert not mock_celery.called
+
+        assert response.status_code == 404
