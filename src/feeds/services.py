@@ -1,5 +1,8 @@
 
+from django.shortcuts import get_object_or_404
+
 from feeds.models import Feed
+from feeds.tasks import get_items_by_feed
 
 
 class FeedsManagerService:
@@ -31,10 +34,19 @@ class FeedsManagerService:
         )
         return created
 
-    def delete_feed(self, uuid):
+    def delete_feed(self, uuid, user):
         '''
         This method deletes a feed using a UUID, if the feed
         exists return 1 else 0.
         '''
-        deleted, _ = Feed.objects.filter(uuid=uuid).delete()
+        deleted, _ = Feed.objects.filter(uuid=uuid, follower=user).delete()
         return deleted
+
+    def update_feed(self, uuid, user):
+        '''
+        This method updates feed items using a UUID from a feed, if the feed
+        exists this methos calls an async task.
+        '''
+        feed = get_object_or_404(Feed, uuid=uuid, follower=user)
+        get_items_by_feed.delay(str(feed.uuid))
+        return True

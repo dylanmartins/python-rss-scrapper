@@ -23,3 +23,21 @@ def update_all_feed_items():
         item.save()
 
     logger.info('Finished task update_all_feed_items')
+
+
+@shared_task
+def get_items_by_feed(uuid_feed):
+    logger.info('Starting task get_items_by_feed')
+
+    try:
+        feed = Feed.objects.get(uuid=uuid_feed)
+        item = Item(
+            title=f'Test random {str(uuid.uuid4())}',
+            feed=feed
+        )
+        item.save()
+    except Exception as err:
+        logger.error(f'Error on task update_all_feed_items. Error:{err}')
+        return
+
+    logger.info('Finished task get_items_by_feed')

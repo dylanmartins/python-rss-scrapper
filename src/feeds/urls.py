@@ -10,4 +10,9 @@ urlpatterns = [
         views.DeleteFeedsView.as_view(),
         name='delete'
     ),
+    path(
+        '<uuid:uuid>/update/',
+        views.UpdateFeedsView.as_view(),
+        name='update'
+    ),
 ]

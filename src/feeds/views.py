@@ -49,6 +49,17 @@ class DeleteFeedsView(GenericAPIView):
         self.manager = FeedsManagerService()
 
     def delete(self, request, uuid):
-        deleted = self.manager.delete_feed(uuid)
-        status = 200 if deleted else 400
+        deleted = self.manager.delete_feed(uuid, request.user)
+        status = 204 if deleted else 400
         return HttpResponse(status=status)
+
+
+class UpdateFeedsView(GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+
+    def __init__(self):
+        self.manager = FeedsManagerService()
+
+    def get(self, request, uuid):
+        self.manager.update_feed(uuid, request.user)
+        return HttpResponse(status=204)
