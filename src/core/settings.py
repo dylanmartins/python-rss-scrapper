@@ -167,7 +167,7 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379'
 CELERY_BEAT_SCHEDULE = {
     'update_all_feed_items': {
         'task': 'feeds.tasks.update_all_feed_items',
-        'schedule': crontab(minute='*/5'),
+        'schedule': crontab(minute='*/30'),
     },
 }
 
@@ -178,6 +178,6 @@ DAYS = 24 * HOURS
 
 CELERY_MAX_RETRIES = 3
 CELERY_RETRY_DELAY = {
-    'update_all_feed_items': 10 * MINUTES,
-    'get_items_by_feed': 10 * MINUTES
+    'update_all_feed_items': 3 * MINUTES,
+    'get_items_by_feed': 3 * MINUTES
 }

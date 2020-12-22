@@ -10,3 +10,4 @@ celery==4.4.1
 redis==3.4.1
 beautifulsoup4==4.9.3
 lxml==4.6.2
+freezegun==1.0.0

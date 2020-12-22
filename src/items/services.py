@@ -1,11 +1,14 @@
 
 import hashlib
+import logging
 from datetime import datetime
 
 from django.shortcuts import get_object_or_404
 
 from feeds.models import Feed
 from items.models import Item
+
+logger = logging.getLogger(__name__)
 
 
 class ItemsManagerService:
@@ -23,10 +26,22 @@ class ItemsManagerService:
             'created_at': item.created_at
         }
 
+    def _convert_published_to_datetime(self, published):
+        try:
+            splitted_published = published.split()
+            del splitted_published[-1]
+
+            return datetime.strptime(
+                ' '.join(splitted_published), '%a, %d %b %Y %H:%M:%S'
+            )
+        except ValueError as err:
+            logger.error(
+                f'Error while converting published date {published}'
+            )
+            return datetime.now().replace(microsecond=0)
+
     def _create_item_object(self, item, feed):
-        published_date = datetime.strptime(
-            item['published'], '%a, %d %b %Y %H:%M:%S GMT'
-        )
+        published_date = self._convert_published_to_datetime(item['published'])
         return {
             'title': item['title'],
             'url': item['link'],
