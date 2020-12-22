@@ -37,7 +37,7 @@ class TestItemsManagerService:
     ):
         assert Item.objects.all().count() == 0
 
-        result = manager.create_items_from_feed(valid_items, valid_feed_a)
+        manager.create_items_from_feed(valid_items, valid_feed_a)
 
         assert Item.objects.all().count() == 1
 
@@ -48,10 +48,10 @@ class TestItemsManagerService:
         valid_items,
         valid_feed_a
     ):
-        result = manager.create_items_from_feed(valid_items, valid_feed_a)
+        manager.create_items_from_feed(valid_items, valid_feed_a)
 
         assert Item.objects.all().count() == 1
 
-        new_result = manager.create_items_from_feed(valid_items, valid_feed_a)
+        manager.create_items_from_feed(valid_items, valid_feed_a)
 
         assert Item.objects.all().count() == 1

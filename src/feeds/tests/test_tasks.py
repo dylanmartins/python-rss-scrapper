@@ -1,8 +1,8 @@
 from unittest import mock
 
 import pytest
-
 from celery.exceptions import Retry
+
 from feeds.models import Feed
 from feeds.tasks import get_items_by_feed, update_all_feed_items
 from items.models import Item
