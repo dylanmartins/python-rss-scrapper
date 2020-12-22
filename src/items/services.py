@@ -23,6 +23,7 @@ class ItemsManagerService:
             'uuid': item.uuid,
             'title': item.title,
             'is_read': item.is_read,
+            'published': item.published,
             'created_at': item.created_at
         }
 
