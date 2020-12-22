@@ -57,7 +57,7 @@ I tried to add this on swagger but I couldn't get it, so I decided to not focus 
 
 ## Makefile Commands
 
-- `make makemigrations`: Look for migrations to create
+- `make makemigrations`: Looks for migrations to create
 - `make migrate`: Execute migrations
 - `make createsuperuser`: Create a superuser for the application
 - `make test`: Execute all tests.
