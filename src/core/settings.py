@@ -170,3 +170,14 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute='*/5'),
     },
 }
+
+SECONDS = 1
+MINUTES = 60 * SECONDS
+HOURS = 60 * MINUTES
+DAYS = 24 * HOURS
+
+CELERY_MAX_RETRIES = 3
+CELERY_RETRY_DELAY = {
+    'update_all_feed_items': 10 * MINUTES,
+    'get_items_by_feed': 10 * MINUTES
+}

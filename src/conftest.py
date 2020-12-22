@@ -107,3 +107,12 @@ def save_items(valid_items_a, valid_items_b, cleanup):
 @pytest.fixture
 def patch_requests_get():
     return patch.object(requests, 'get')
+
+
+@pytest.fixture
+def valid_items():
+    return [{
+        'link': 'https://tweakers.net/nieuws/176016/among-us-is-met-500-miljoen-actieve-spelers-meest-populaire-game-ooit.html',  # noqa
+        'published': 'Mon, 21 Dec 2020 20:38:00 GMT',
+        'title': "'Among Us is met 500 miljoen actieve spelers meest populaire game ooit'"  # noqa
+    }]

@@ -13,14 +13,6 @@ class TestItemsManagerService:
     def manager(self):
         return ItemsManagerService()
 
-    @pytest.fixture
-    def valid_items(self):
-        return [{
-            'link': 'https://tweakers.net/nieuws/176016/among-us-is-met-500-miljoen-actieve-spelers-meest-populaire-game-ooit.html',  # noqa
-            'published': 'Mon, 21 Dec 2020 20:38:00 GMT',
-            'title': "'Among Us is met 500 miljoen actieve spelers meest populaire game ooit'"  # noqa
-        }]
-
     def test_create_item_object_should_create_valid_md5(
         self,
         manager,
