@@ -11,7 +11,6 @@ class RssScrapper:
     def _get_item_data(self, item):
         return {
             'title': item.find('title').text,
-            'description': item.find('description').text,
             'published': item.find('pubDate').text,
             'link': item.find('link').text,
         }

@@ -18,7 +18,6 @@ class TestRssScrapper:
             <item>
             <title>\'Among Us is met 500 miljoen actieve spelers meest populaire game ooit\'</title>
             <link>https://tweakers.net/nieuws/176016/among-us-is-met-500-miljoen-actieve-spelers-meest-populaire-game-ooit.html</link>
-            <description>Social deduction-game Among Us</description>
             <category>
             Nieuws - : Gaming / Games
             </category>
@@ -61,7 +60,6 @@ class TestRssScrapper:
             results = scrapper.scrappy(url)
 
         assert results[0] == {
-            'description': 'Social deduction-game Among Us',
             'link': 'https://tweakers.net/nieuws/176016/among-us-is-met-500-miljoen-actieve-spelers-meest-populaire-game-ooit.html',  # noqa
             'published': 'Mon, 21 Dec 2020 20:38:00 GMT',
             'title': "'Among Us is met 500 miljoen actieve spelers meest populaire game ooit'"  # noqa
