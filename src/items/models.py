@@ -15,7 +15,6 @@ class Item(models.Model):
     url = models.URLField(blank=True)
     published = models.DateTimeField(default=datetime.now)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     feed = models.ForeignKey(
         Feed,
         on_delete=models.CASCADE,

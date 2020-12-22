@@ -21,8 +21,7 @@ class ItemsManagerService:
             'uuid': item.uuid,
             'title': item.title,
             'is_read': item.is_read,
-            'created_at': item.created_at,
-            'updated_at': item.updated_at
+            'created_at': item.created_at
         }
 
     def _create_item_object(self, item, feed):
