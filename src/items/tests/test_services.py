@@ -14,7 +14,7 @@ class TestItemsManagerService:
     def manager(self):
         return ItemsManagerService()
 
-    def test_create_item_object_should_create_valid_md5(
+    def test_create_md5_should_create_valid_md5(
         self,
         manager,
         valid_feed_a

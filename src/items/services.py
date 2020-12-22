@@ -28,6 +28,17 @@ class ItemsManagerService:
         }
 
     def _convert_published_to_datetime(self, published):
+        '''
+        This method receives a string date, removes some data at the end
+        and returns a datetime object.
+        For example:
+            This "Mon, 21 Dec 2020 20:38:00 GMT" turns into
+            "Mon, 21 Dec 2020 20:38:00"
+
+            This "Tue, 22 Dec 2020 14:29:43 +0100" turns into
+            "Tue, 22 Dec 2020 14:29:43"
+        If the convertion fails, this method returns the datetime.now()
+        '''
         try:
             splitted_published = published.split()
             del splitted_published[-1]
@@ -41,7 +52,7 @@ class ItemsManagerService:
             )
             return datetime.now().replace(microsecond=0)
 
-    def _create_item_object(self, item, feed):
+    def _create_item_payload(self, item, feed):
         published_date = self._convert_published_to_datetime(item['published'])
         return {
             'title': item['title'],
@@ -102,7 +113,7 @@ class ItemsManagerService:
         '''
         new_items = []
         for item in items:
-            item_object = self._create_item_object(item, feed)
+            item_object = self._create_item_payload(item, feed)
             md5 = self._create_md5(item_object)
 
             if not Item.objects.filter(md5=md5).exists():

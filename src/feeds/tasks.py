@@ -18,6 +18,9 @@ items_manager = ItemsManagerService()
     default_retry_delay=settings.CELERY_RETRY_DELAY['update_all_feed_items'],
 )
 def update_all_feed_items(self):
+    '''
+    This task gets all feed and updates their items.
+    '''
     logger.info('Starting task update_all_feed_items')
 
     try:
@@ -42,6 +45,9 @@ def update_all_feed_items(self):
     default_retry_delay=settings.CELERY_RETRY_DELAY['get_items_by_feed'],
 )
 def get_items_by_feed(self, uuid_feed):
+    '''
+    This task receives a specific feed uuid and updates all his items.
+    '''
     logger.info('Starting task get_items_by_feed')
 
     try:
