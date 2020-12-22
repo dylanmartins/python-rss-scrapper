@@ -34,7 +34,7 @@ class ItemsManagerService:
             return datetime.strptime(
                 ' '.join(splitted_published), '%a, %d %b %Y %H:%M:%S'
             )
-        except ValueError as err:
+        except ValueError:
             logger.error(
                 f'Error while converting published date {published}'
             )

@@ -1,8 +1,8 @@
 from datetime import datetime
 
 import pytest
-
 from freezegun import freeze_time
+
 from items.models import Item
 from items.services import ItemsManagerService
 
@@ -32,7 +32,10 @@ class TestItemsManagerService:
     @freeze_time('2020-12-14 09:00:01')
     @pytest.mark.parametrize('date,expected', (
         ('Mon, 21 Dec 2020 20:38:00 GMT', datetime(2020, 12, 21, 20, 38)),
-        ('Tue, 22 Dec 2020 14:29:43 +0100', datetime(2020, 12, 22, 14, 29, 43)),
+        (
+            'Tue, 22 Dec 2020 14:29:43 +0100',
+            datetime(2020, 12, 22, 14, 29, 43)
+        ),
         ('Invalid date 22 Dec', datetime(2020, 12, 14, 9, 0, 1))
     ))
     def test_convert_published_to_datetime_should_return_datetime(
