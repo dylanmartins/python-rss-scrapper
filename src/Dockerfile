@@ -1,7 +1,7 @@
 FROM python:3
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update && apt-get -y install cron
+RUN apt-get clean && apt-get update && apt-get -y install cron
 
 RUN mkdir /code
 WORKDIR /code
